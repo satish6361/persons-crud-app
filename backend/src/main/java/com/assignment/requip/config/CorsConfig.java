@@ -14,7 +14,12 @@ public class CorsConfig {
 
         CorsConfiguration config = new CorsConfiguration();
 
+        // Local development
         config.addAllowedOrigin("http://localhost:5173");
+
+        // Production frontend
+        config.addAllowedOrigin("https://person-management-requip.netlify.app/");
+
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
         config.setAllowCredentials(true);
