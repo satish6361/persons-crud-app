@@ -35,4 +35,31 @@ public class PersonController {
         );
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<PersonDto> updatePerson(
+            @PathVariable Long id,
+            @Valid @RequestBody PersonDto personDto) {
+
+        return ResponseEntity.ok(
+                personService.updatePerson(id, personDto)
+        );
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletePerson(@PathVariable Long id) {
+
+        personService.deletePerson(id);
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PersonDto> getPerson(
+            @PathVariable Long id) {
+
+        return ResponseEntity.ok(
+                personService.getPerson(id)
+        );
+    }
+
 }

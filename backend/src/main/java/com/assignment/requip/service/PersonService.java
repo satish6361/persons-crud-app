@@ -46,7 +46,7 @@ public class PersonService {
     }
 
     public Page<PersonDto> getAllPersons(int page, int size, String sortBy) {
-
+        log.info("Getting all persons with page: {} and size: {} and sort by: {}", page, size, sortBy);
         Pageable pageable =
                 PageRequest.of(page, size, Sort.by(sortBy).ascending());
 
@@ -56,7 +56,7 @@ public class PersonService {
     }
 
     public void deletePerson(Long id) {
-
+        log.info("Deleting person with id: {}", id);
         Person person = personRepository.findById(id)
                 .orElseThrow(() ->
                         new ResourceNotFoundException("Person not found"));
@@ -67,7 +67,7 @@ public class PersonService {
     }
 
     public PersonDto getPerson(Long id) {
-
+        log.info("Getting person with id: {}", id);
         Person person = personRepository.findById(id)
                 .filter(p -> !Boolean.TRUE.equals(p.getIsDeleted()))
                 .orElseThrow(() ->
@@ -78,14 +78,14 @@ public class PersonService {
     }
 
     public PersonDto updatePerson(Long id, PersonDto personDto) {
-
+        log.info("Updating person with id: {}", id);
         Person existingPerson = personRepository.findById(id)
                 .filter(p -> !Boolean.TRUE.equals(p.getIsDeleted()))
                 .orElseThrow(() ->
                         new ResourceNotFoundException(
                                 "Person not found with id: " + id));
 
-        // Email uniqueness check
+        // New - Email uniqueness check
         personRepository.findByEmail(personDto.getEmail())
                 .filter(person -> !person.getId().equals(id))
                 .ifPresent(person -> {
@@ -93,7 +93,7 @@ public class PersonService {
                             "Email already exists: " + personDto.getEmail());
                 });
 
-        // Aadhaar uniqueness check
+        // New - Aadhaar uniqueness check
         if (personDto.getAadhaar() != null) {
             personRepository.findByAadhaar(personDto.getAadhaar())
                     .filter(person -> !person.getId().equals(id))
@@ -103,7 +103,7 @@ public class PersonService {
                     });
         }
 
-        // PAN uniqueness check
+        // New - PAN uniqueness check
         if (personDto.getPan() != null) {
             personRepository.findByPan(personDto.getPan())
                     .filter(person -> !person.getId().equals(id))
