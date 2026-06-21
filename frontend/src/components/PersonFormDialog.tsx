@@ -11,7 +11,7 @@ import {
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Controller } from "react-hook-form";
-import { Backdrop, CircularProgress, Typography, Box } from "@mui/material";
+import { Backdrop, CircularProgress, Typography } from "@mui/material";
 
 interface Person {
   id?: number;
