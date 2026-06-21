@@ -56,6 +56,7 @@ export default function PersonTable({
       rows={persons}
       columns={columns}
       loading={loading}
+      disableRowSelectionOnClick
       paginationMode="server"
       // rowCount={totalElements}
       paginationModel={{
