@@ -8,7 +8,6 @@ export default function PersonTable({
   loading,
   page,
   pageSize,
-  totalElements,
   onEdit,
   onDelete,
   onPageChange,
