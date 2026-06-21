@@ -84,26 +84,21 @@ export default function Dashboard() {
 
   const handleSubmitPerson = async (data: Person) => {
     try {
-      console.log("handleSubmitPerson is called");
-      console.log("selectedPerson: ", selectedPerson);
       if (selectedPerson?.id) {
         await updatePerson(selectedPerson.id, data);
-
         toast.success("Person updated successfully");
       } else {
-        console.log("Inside else block: ", data);
-
         await createPerson(data);
-
         toast.success("Person created successfully");
-        handleCloseForm();
       }
 
       loadPersons();
-
       handleCloseForm();
+
+      return true;
     } catch (error) {
       toast.error("Failed to save person");
+      throw error;
     }
   };
   useEffect(() => {
@@ -112,9 +107,6 @@ export default function Dashboard() {
   return (
     <Container maxWidth="xl">
       <Header onAddPerson={handleAddPerson} />
-
-      {/* <SearchBar /> */}
-
       <PersonTable
         persons={persons}
         loading={loading}

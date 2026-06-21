@@ -14,8 +14,6 @@ export default function Header({ onAddPerson }: HeaderProps) {
       sx={{
         borderRadius: 4,
         mb: 3,
-        // background:
-        //   "linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #EC4899 100%)",
         background: "#4F46E5",
       }}
     >

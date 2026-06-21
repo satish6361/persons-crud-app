@@ -58,7 +58,7 @@ export default function PersonTable({
       columns={columns}
       loading={loading}
       paginationMode="server"
-      rowCount={totalElements}
+      // rowCount={totalElements}
       paginationModel={{
         page,
         pageSize,
