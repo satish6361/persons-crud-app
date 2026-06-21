@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { Controller } from "react-hook-form";
 
 interface Person {
   id?: number;
@@ -57,6 +58,7 @@ export default function PersonFormDialog({
     register,
     handleSubmit,
     reset,
+    control,
     formState: { errors },
   } = useForm<Person>({
     defaultValues,
@@ -114,19 +116,25 @@ export default function PersonFormDialog({
             </Grid>
 
             <Grid size={{ xs: 12, md: 6 }}>
-              <TextField
-                select
-                fullWidth
-                label="Gender"
-                defaultValue=""
-                {...register("gender")}
-              >
-                <MenuItem value="MALE">Male</MenuItem>
-
-                <MenuItem value="FEMALE">Female</MenuItem>
-
-                <MenuItem value="OTHER">Other</MenuItem>
-              </TextField>
+              <Controller
+                name="gender"
+                control={control}
+                rules={{ required: "Gender is required" }}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    select
+                    fullWidth
+                    label="Gender"
+                    error={!!errors.gender}
+                    helperText={errors.gender?.message}
+                  >
+                    <MenuItem value="MALE">Male</MenuItem>
+                    <MenuItem value="FEMALE">Female</MenuItem>
+                    <MenuItem value="OTHER">Other</MenuItem>
+                  </TextField>
+                )}
+              />
             </Grid>
 
             <Grid size={{ xs: 12, md: 6 }}>
